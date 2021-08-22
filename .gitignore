@@ -1,3 +1,4 @@
 pycache__/
 *.pyc
 poetry.lock
+dist/
