@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "aiomoe"
+version = "1.0.0"
+description = "Fully asynchronous trace.moe API wrapper"
+authors = ["FeeeeK"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.6.1"
+aiohttp = "^3.7.4"
+pydantic = "^1.8.2"
+loguru = "^0.5.3"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
