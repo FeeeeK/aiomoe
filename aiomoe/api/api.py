@@ -1,11 +1,11 @@
 from io import BytesIO
-from typing import IO, Optional, Union
+from typing import BinaryIO, Dict, Optional, Union
 
 from aiohttp import ClientSession
+from loguru import logger
 
 from ..models import SearchResult, User
 from ..utils import check_response
-from loguru import logger
 
 
 class API:
@@ -28,10 +28,10 @@ class API:
 
     async def search(
         self,
-        file_source: Union[IO, bytes, str],
-        anilist_info: bool = False,
-        cut_borders: bool = False,
-        anilist_id: int = None,
+        file_source: Union[BinaryIO, bytes, str],
+        anilist_info: Optional[bool] = False,
+        cut_borders: Optional[bool] = False,
+        anilist_id: Optional[int] = None,
     ) -> SearchResult:
         """/search
 
@@ -41,7 +41,8 @@ class API:
         anilist_id - Filter results by anilist id
         """
         url = self.API_URL + "/search"
-        query = {}
+        query: Dict[str, Union[str, int]] = {}
+        file: Optional[BinaryIO] = None
         if self.token:
             query["key"] = self.token
         if anilist_info:
@@ -52,16 +53,20 @@ class API:
             query["anilistID"] = anilist_id
         if isinstance(file_source, str):
             query["url"] = file_source
-            file_source = None
         elif isinstance(file_source, bytes):
-            file_source = BytesIO(bytes)
-        status, response = await self.request(url, query, file_source)
+            file = BytesIO(file_source)
+        else:
+            file = file_source
+        status, response = await self.request(url, query, file)
         logger.debug(f"Got response from {self.API_URL}/search: {response}")
         return await check_response(status, response, SearchResult)
 
-    async def request(self, url: str, query: dict, data: Optional[IO] = None):
+    async def request(self, url: str, query: dict, data: Optional[BinaryIO] = None):
+        files = None
+        if data:
+            files = {"image": data}
         async with ClientSession(**self.session_kwargs) as session, session.request(
-            "POST" if data else "GET", url, params=query, data=data
+            "POST" if data else "GET", url, params=query, data=files
         ) as response:
             logger.debug(f"Request sent to '{url}', status: {response.status}")
             return response.status, await response.json()

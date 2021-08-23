@@ -1,3 +1,5 @@
+from typing import Type
+
 from pydantic import BaseModel
 
 from ..errors import (
@@ -25,7 +27,7 @@ errors = {
 }
 
 
-async def check_response(status, response: dict, datatype: BaseModel):
+async def check_response(status, response: dict, datatype: Type[BaseModel]):
     if status == 200:
         return datatype(**response)
     exception = errors[status]

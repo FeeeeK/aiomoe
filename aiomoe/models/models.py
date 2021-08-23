@@ -1,4 +1,4 @@
-from typing import List, Union, Optional
+from typing import List, Optional, Union
 
 from pydantic import BaseModel
 
@@ -18,7 +18,7 @@ class Error(BaseModel):
     error - Error message
     """
 
-    error: str = None
+    error: str
 
 
 class User(Error):
@@ -31,25 +31,25 @@ class User(Error):
     quota_used - Search quota you have used this month
     """
 
-    id: str = None
-    priority: int = None
-    concurrency: int = None
-    quota: int = None
-    quota_used: int = None
+    id: str
+    priority: int
+    concurrency: int
+    quota: int
+    quota_used: int
 
 
 class AnilistTitle(BaseModel):
-    native: Optional[str] = None
-    romaji: Optional[str] = None
-    english: Optional[str] = None
+    native: Optional[str]
+    romaji: Optional[str]
+    english: Optional[str]
 
 
 class Anilist(BaseModel):
-    id: int = None
-    id_mal: int = None
-    is_adult: bool = None
-    synonyms: List[str] = None
-    title: AnilistTitle = None
+    id: int
+    id_mal: int
+    is_adult: bool
+    synonyms: List[str]
+    title: AnilistTitle
 
 
 class Result(BaseModel):
@@ -65,14 +65,14 @@ class Result(BaseModel):
     image - URL to the preview image of the matching scene
     """
 
-    anilist: Union[int, Anilist] = None
-    filename: str = None
-    episode: Union[float, str, List[Union[float, str]]] = None
-    _from: float = None
-    to: float = None
-    similarity: float = None
-    video: str = None
-    image: str = None
+    anilist: Union[int, Anilist]
+    filename: str
+    episode: Optional[Union[int, float, str, List[Union[int, float, str]]]]
+    _from: float
+    to: float
+    similarity: float
+    video: str
+    image: str
 
 
 class SearchResult(Error):
@@ -82,8 +82,8 @@ class SearchResult(Error):
     result - Search results
     """
 
-    frame_count: int = None
-    result: List[Result] = None
+    frame_count: int
+    result: List[Result]
 
 
 Error.update_forward_refs()

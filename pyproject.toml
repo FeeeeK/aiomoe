@@ -1,9 +1,38 @@
 [tool.poetry]
 name = "aiomoe"
-version = "1.0.0"
+version = "1.0.1"
 description = "Fully asynchronous trace.moe API wrapper"
 authors = ["FeeeeK"]
 license = "MIT"
+readme = "README.md"
+
+homepage = "https://github.com/FeeeeK/aiomoe"
+repository = "https://github.com/FeeeeK/aiomoe"
+
+keywords = [
+  "api",
+  "aiomoe",
+  "async",
+  "asyncio",
+  "trace.moe",
+  "tracemoe",
+  "tracemoe-api",
+]
+
+classifiers = [
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3.6",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "Topic :: Software Development :: Quality Assurance",
+  "Typing :: Typed",
+]
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/FeeeeK/aiomoe/issues"
 
 [tool.poetry.dependencies]
 python = "^3.6.1"
@@ -11,7 +40,28 @@ aiohttp = "^3.7.4"
 pydantic = "^1.8.2"
 loguru = "^0.5.3"
 
-[tool.poetry.dev-dependencies]
+
+[tool.black]
+line-length = 99
+target-version = ['py37', 'py38']
+exclude = '''
+(
+    \.eggs
+  | \.git
+  | \.tox
+  | build
+  | dist
+  | venv
+  | docs
+)
+'''
+
+[tool.isort]
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+line_length = 99
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
