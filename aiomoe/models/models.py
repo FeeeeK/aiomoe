@@ -13,29 +13,25 @@ BaseModel.Config.allow_population_by_field_name = True
 
 
 class Error(BaseModel):
-    """Error object
-
-    error - Error message
-    """
+    """Error object"""
 
     error: str
+    """Error message"""
 
 
 class User(Error):
-    """User object
-
-    id - IP address (guest) or email address (user)
-    priority - Your priority in search queue
-    concurency - Number of parallel search requests you can make
-    quota - Search quota you have for this month
-    quota_used - Search quota you have used this month
-    """
+    """User object"""
 
     id: str
+    """IP address (guest) or email address (user)"""
     priority: int
+    """Your priority in search queue"""
     concurrency: int
+    """Number of parallel search requests you can make"""
     quota: int
+    """Search quota you have for this month"""
     quota_used: int
+    """Search quota you have used this month"""
 
 
 class AnilistTitle(BaseModel):
@@ -53,37 +49,33 @@ class Anilist(BaseModel):
 
 
 class Result(BaseModel):
-    """Result object
-
-    anilist - The matching Anilist ID or Anilist info
-    filename - The filename of file where the match is found
-    episode - The extracted episode number from filename
-    _from - Starting time of the matching scene (seconds)
-    to - Ending time of the matching scene (seconds)
-    similarity - Similarity compared to the search image
-    video - URL to the preview video of the matching scene
-    image - URL to the preview image of the matching scene
-    """
+    """Result object"""
 
     anilist: Union[int, Anilist]
+    """The matching Anilist ID or Anilist info"""
     filename: str
+    """The filename of file where the match is found"""
     episode: Optional[Union[int, float, str, List[Union[int, float, str]]]]
+    """The extracted episode number from filename"""
     _from: float
+    """Starting time of the matching scene (seconds)"""
     to: float
+    """Ending time of the matching scene (seconds)"""
     similarity: float
+    """Similarity compared to the search image"""
     video: str
+    """URL to the preview video of the matching scene"""
     image: str
+    """URL to the preview image of the matching scene"""
 
 
 class SearchResult(Error):
-    """SearchResult object
-
-    frame_count - Frames compared for image search
-    result - Search results
-    """
+    """SearchResult object"""
 
     frame_count: int
+    """Frames compared for image search"""
     result: List[Result]
+    """Search results"""
 
 
 Error.update_forward_refs()
