@@ -53,7 +53,7 @@ class Anilist(BaseModel):
 
 
 class Result(BaseModel):
-    """Result obbject
+    """Result object
 
     anilist - The matching Anilist ID or Anilist info
     filename - The filename of file where the match is found
