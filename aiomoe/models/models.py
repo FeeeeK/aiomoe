@@ -1,9 +1,12 @@
 from typing import List, Optional, Union
 
 from pydantic import BaseModel
+from keyword import kwlist
 
 
 def to_calmel_case(string: str) -> str:
+    if string in kwlist:
+        return "_" + string
     words = string.split("_")
     return words[0] + "".join(word.capitalize() for word in words[1:])
 
