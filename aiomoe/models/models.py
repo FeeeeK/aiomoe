@@ -6,7 +6,7 @@ from keyword import kwlist
 
 def to_calmel_case(string: str) -> str:
     if string in kwlist:
-        return "_" + string
+        return string + "_"
     words = string.split("_")
     return words[0] + "".join(word.capitalize() for word in words[1:])
 
@@ -45,7 +45,7 @@ class AnilistTitle(BaseModel):
 
 class Anilist(BaseModel):
     id: int
-    id_mal: int
+    id_mal: Optional[int]
     is_adult: bool
     synonyms: List[str]
     title: AnilistTitle
@@ -60,7 +60,7 @@ class Result(BaseModel):
     """The filename of file where the match is found"""
     episode: Optional[Union[int, float, str, List[Union[int, float, str]]]]
     """The extracted episode number from filename"""
-    _from: float
+    from_: float
     """Starting time of the matching scene (seconds)"""
     to: float
     """Ending time of the matching scene (seconds)"""
