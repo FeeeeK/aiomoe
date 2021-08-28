@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "aiomoe"
-version = "1.0.3"
+version = "1.0.4"
 description = "Fully asynchronous trace.moe API wrapper"
 authors = ["FeeeeK"]
 license = "MIT"
